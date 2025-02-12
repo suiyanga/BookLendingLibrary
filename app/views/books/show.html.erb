@@ -1,0 +1,84 @@
+<div class="min-h-screen bg-black text-white font-serif px-12 py-16">
+  <div class="max-w-4xl mx-auto">
+    <!-- Title -->
+    <h1 class="text-5xl font-bold italic mb-6"><%= @book.title %></h1>
+
+    <!-- Book Container -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 bg-gray-900 p-6 rounded-lg shadow-md">
+      <!-- Book Cover -->
+      <div class="col-span-1">
+        <% if @book.image_url.present? %>
+          <img src="<%= image_path(@book.image_url) %>" alt="<%= @book.title %>" class="rounded-lg shadow-lg w-full">
+        <% else %>
+          <div class="w-full h-48 flex items-center justify-center bg-gray-800 rounded-lg">
+            <span class="text-gray-500">No Image Available</span>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Book Details -->
+      <div class="col-span-2 space-y-4">
+        <p class="text-lg text-gray-400"><strong>Author:</strong> <%= @book.author %></p>
+        <p class="text-lg text-gray-400"><strong>ISBN:</strong> <%= @book.isbn %></p>
+        <p class="text-lg text-gray-400"><strong>Description:</strong> <%= @book.description.presence || "No description available." %></p>
+
+        <% if @book.available? %>
+          <p class="text-green-400 text-lg">✅ Available</p>
+        <% else %>
+          <p class="text-red-400 text-lg">❌ Borrowed (Due Date: <%= @book.borrowings.last&.due_date&.strftime("%Y-%m-%d") || "Unknown" %>)</p>
+        <% end %>
+
+        <!-- Borrow or Return Buttons -->
+        <div class="mt-6">
+          <% if user_signed_in? %>
+            <% if @book.available? %>
+              <%= button_to "📚 Borrow Book", borrow_book_path(@book), method: :post, class: "bg-green-600 px-4 py-2 rounded-md hover:bg-green-500 transition" %>
+            <% elsif current_user.borrowings.find_by(book: @book, returned_at: nil) %>
+              <%= button_to "🔙 Return Book", return_book_path(@book), method: :patch, class: "bg-red-600 px-4 py-2 rounded-md hover:bg-red-500 transition" %>
+            <% end %>
+          <% else %>
+            <p class="text-yellow-400">🔒 You need to sign in to borrow books.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews & Comments Section -->
+    <div class="mt-10">
+      <h2 class="text-3xl font-semibold mb-4">💬 Reviews & Comments</h2>
+
+      <% if @book.reviews.any? %>
+        <div class="space-y-6">
+          <% @book.reviews.each do |review| %>
+            <div class="bg-gray-800 p-4 rounded-lg">
+              <p class="text-gray-300"><strong><%= review.user.email %></strong> - <%= review.created_at.strftime("%Y-%m-%d") %></p>
+              <p class="text-gray-400 mt-2"><%= review.content %></p>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 italic">No reviews yet. Be the first to review this book!</p>
+      <% end %>
+
+      <!-- Add a Review Form -->
+      <% if user_signed_in? %>
+        <div class="mt-6 bg-gray-900 p-6 rounded-lg shadow-md">
+          <h3 class="text-2xl font-semibold mb-2">Add a Review</h3>
+          <%= form_with model: [@book, @book.reviews.build], local: true, class: "space-y-4" do |f| %>
+            <div>
+              <%= f.text_area :content, class: "w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none", placeholder: "Write your review..." %>
+            </div>
+            <%= f.submit "Submit Review", class: "bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500 transition" %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-yellow-400 mt-4">🔒 Sign in to leave a review.</p>
+      <% end %>
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-8">
+      <%= link_to "← Back to Library", books_path, class: "text-gray-300 hover:text-gray-100" %>
+    </div>
+  </div>
+</div>

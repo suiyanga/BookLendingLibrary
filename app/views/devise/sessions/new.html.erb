@@ -1,0 +1,25 @@
+<div class="min-h-screen flex items-center justify-center bg-black">
+  <div class="bg-gray-900 p-8 rounded-lg shadow-lg max-w-md w-full">
+    <h2 class="text-3xl font-bold italic text-center text-white mb-6">Log In</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="mb-4">
+        <%= f.label :email, class: "text-white" %>
+        <%= f.email_field :email, class: "w-full p-2 bg-gray-800 text-white rounded-md" %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :password, class: "text-white" %>
+        <%= f.password_field :password, class: "w-full p-2 bg-gray-800 text-white rounded-md" %>
+      </div>
+
+      <div class="text-center">
+        <%= f.submit "Log In", class: "bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500 transition w-full" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-4 text-gray-400">
+      Don't have an account? <%= link_to "Sign up", new_user_registration_path, class: "text-blue-400 hover:text-blue-300" %>
+    </div>
+  </div>
+</div>

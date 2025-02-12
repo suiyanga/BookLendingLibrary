@@ -1,0 +1,27 @@
+<div class="min-h-screen bg-black text-white font-serif px-12 py-16">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-5xl font-bold italic mb-6">Profile</h1>
+    
+    <div class="bg-gray-900 p-6 rounded-lg shadow-md">
+      <p class="text-lg text-gray-300"><strong>Email:</strong> <%= @user.email %></p>
+      <h2 class="text-3xl font-semibold mt-6 mb-4">Borrowed Books</h2>
+      
+      <% if @user.borrowings.any? %>
+        <ul class="space-y-4">
+          <% @user.borrowings.active.each do |borrowing| %>
+            <li class="bg-gray-800 p-4 rounded-lg">
+              <strong class="text-lg text-blue-400"><%= borrowing.book.title %></strong>
+              <p class="text-gray-400">Due Date: <%= borrowing.due_date.strftime("%Y-%m-%d") %></p>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-gray-500 italic">No borrowed books currently.</p>
+      <% end %>
+    </div>
+    
+    <div class="mt-8">
+      <%= link_to "← Back to Library", books_path, class: "text-gray-300 hover:text-gray-100" %>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, only: [:borrow, :return]
-  before_action :set_book, only: [:show, :borrow, :return]
+  before_action :authenticate_user!, only: [ :borrow, :return ]
+  before_action :set_book, only: [ :show, :borrow, :return ]
 
   def index
     @books = Book.all

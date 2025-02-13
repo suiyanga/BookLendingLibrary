@@ -2,20 +2,20 @@ Rails.application.routes.draw do
   root "books#index"
 
   # Ensure Devise is properly loaded
-  devise_for :users, controllers: { 
-    sessions: "users/sessions", 
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
     registrations: "users/registrations",
-    passwords: "users/passwords" 
+    passwords: "users/passwords"
   }
 
   # Only include users#show, no manual sign_out (handled by Devise)
-  resources :users, only: [:show]
+  resources :users, only: [ :show ]
 
-  resources :books, only: [:index, :show] do
+  resources :books, only: [ :index, :show ] do
     member do
       post "borrow"
       patch "return"
     end
-    resources :reviews, only: [:create] 
+    resources :reviews, only: [ :create ]
   end
 end

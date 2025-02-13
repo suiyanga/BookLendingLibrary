@@ -18,30 +18,13 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
-    <!-- Ensure rails-ujs is loaded for DELETE method -->
-    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+    <!-- ✅ Ensure rails-ujs is loaded -->
+    <%= javascript_include_tag "rails-ujs", "data-turbo-track": "reload" %>
   </head>
 
   <body class="bg-black text-white">
     <main class="w-full min-h-screen">
       <%= yield %>
     </main>
-
-    <!-- Auto-clear session on logout -->
-    <script>
-      document.addEventListener("turbo:load", function() {
-        const logoutLinks = document.querySelectorAll("a[data-method='delete']");
-        logoutLinks.forEach(link => {
-          link.addEventListener("click", () => {
-            setTimeout(() => {
-              fetch("<%= destroy_user_session_path %>", { method: "DELETE", credentials: "same-origin" })
-                .then(() => {
-                  window.location.href = "<%= new_user_session_path %>"; // Redirect to login page
-                });
-            }, 200);
-          });
-        });
-      });
-    </script>
   </body>
 </html>

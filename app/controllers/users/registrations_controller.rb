@@ -1,9 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
+  protected
 
-  private
-
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation])
+  def after_sign_up_path_for(resource)
+    sign_in(resource) # Ensure the user is signed in
+    books_path # Redirect to books page
   end
 end

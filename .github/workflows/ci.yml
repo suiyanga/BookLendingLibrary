@@ -72,8 +72,8 @@ jobs:
       image: postgres
       env:
         POSTGRES_USER: book_lending_library_user
-        POSTGRES_PASSWORD: Uptown7unk*69  
-        POSTGRES_DB: book_lending_library_test 
+        POSTGRES_PASSWORD: Uptown7unk*69
+        POSTGRES_DB: book_lending_library_test
       ports:
         - 5432:5432
       options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -94,30 +94,19 @@ jobs:
     - name: Fix file permissions
       run: chmod +x bin/*
 
-    - name: Clear CI cache and rebuild environment
+    - name: Wait for PostgreSQL to be ready
       run: |
-        # Clear any cached data that could interfere
-        rm -rf tmp/cache
-        rm -rf tmp/pids
-        rm -rf tmp/sockets
-        rm -rf tmp/test
-        # Rebuild environment
-        bin/rails db:drop RAILS_ENV=test || true
-        bin/rails db:create RAILS_ENV=test
-        bin/rails db:schema:load RAILS_ENV=test
-        bin/rails db:seed RAILS_ENV=test
+        until pg_isready -h localhost -p 5432; do
+          echo "Waiting for PostgreSQL to start..."
+          sleep 2
+        done
 
-    - name: Set up PostgreSQL user and database
-      run: |
-        sudo -u postgres psql -c "CREATE USER book_lending_library_user WITH PASSWORD 'Uptown7unk*69';"
-        sudo -u postgres psql -c "CREATE DATABASE book_lending_library_test OWNER book_lending_library_user;"
-    
     - name: Set up database
       env:
         RAILS_ENV: test
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432/book_lending_library_test_${{ github.run_id }}
+        DATABASE_URL: postgres://book_lending_library_user:Uptown7unk*69@localhost:5432/book_lending_library_test
       run: |
-        # Ensure database is reset and separated for each test run
+        # Clean the test database
         bin/rails db:drop RAILS_ENV=test || true
         bin/rails db:create RAILS_ENV=test
         bin/rails db:schema:load RAILS_ENV=test
@@ -126,7 +115,7 @@ jobs:
     - name: Run tests
       env:
         RAILS_ENV: test
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432/book_lending_library_test_${{ github.run_id }}
+        DATABASE_URL: postgres://book_lending_library_user:Uptown7unk*69@localhost:5432/book_lending_library_test
       run: |
         # Ensure tests are prepared properly
         bin/rails db:test:prepare

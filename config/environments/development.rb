@@ -1,8 +1,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-
-
   config.hosts << "localhost"
   config.hosts << "127.0.0.1"
   config.hosts << "www.example.com"

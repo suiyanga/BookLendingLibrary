@@ -56,10 +56,9 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'factory_bot_rails'
+  gem "factory_bot_rails"
 
-  gem 'faker'
-
+  gem "faker"
 end
 
 group :development do
@@ -70,7 +69,7 @@ end
 # For testing
 group :test do
   gem "rspec-rails"
-  gem 'shoulda-matchers'
+  gem "shoulda-matchers"
   gem "rails-controller-testing"
 end
 

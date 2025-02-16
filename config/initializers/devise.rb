@@ -2,7 +2,7 @@ Devise.setup do |config|
   require "devise/orm/active_record" # Ensure Devise ORM is loaded
 
   # config.orm = :active_record
-  config.secret_key = 'some-random-secret-key' # Replace with a secure key
+  config.secret_key = "some-random-secret-key" # Replace with a secure key
   config.mailer_sender = "please-change-me@example.com"
 
   # Fix for Devise mapping issue

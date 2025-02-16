@@ -1,30 +1,14 @@
-require "test_helper"
-
+# test/controllers/books_controller_test.rb
 class BooksControllerTest < ActionDispatch::IntegrationTest
-  include Rails.application.routes.url_helpers
-  include Devise::Test::IntegrationHelpers
-
-  # Test for index action
   test "should get index" do
-    # Use FactoryBot to create a book
-    book = FactoryBot.create(:book)
-
-    # Make the request to the index action
-    get books_url
-
-    # Assert that the response is successful
+    book = FactoryBot.create(:book, image_url: 'https://via.placeholder.com/150')  # Ensure image_url is set
+    get books_path  # Change from books_index_url to books_path to match your route
     assert_response :success
   end
 
-  # Test for show action
   test "should get show" do
-    # Use FactoryBot to create a book
-    book = FactoryBot.create(:book)
-
-    # Make the request to the show action with the created book's id
-    get books_url(book)
-
-    # Assert that the response is successful
+    book = FactoryBot.create(:book, image_url: 'https://via.placeholder.com/150')
+    get book_path(book)  # Ensure you pass a valid book instance
     assert_response :success
   end
 end

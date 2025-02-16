@@ -8,8 +8,11 @@ FactoryBot.define do
 
 
       after(:build) do |book|
-        # Make sure the ISBN is unique
-        book.isbn = "978-#{rand(1000000000..9999999999)}" until Book.where(isbn: book.isbn).empty?
-      end
+        # Ensure the ISBN is unique across all books in the database
+        loop do
+          random_isbn = "978-#{rand(1000000000..9999999999)}"
+          break if Book.where(isbn: random_isbn).empty?
+        end
     end
   end
+end

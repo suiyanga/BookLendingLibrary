@@ -71,6 +71,7 @@ group :test do
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "rails-controller-testing"
+  gem 'database_cleaner-active_record', '~> 2.0'
 end
 
 group :test do

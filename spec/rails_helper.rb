@@ -19,11 +19,19 @@ RSpec.configure do |config|
 
   # Ensure data is created before each test
   config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
     FactoryBot.create(:user) unless User.exists?
     FactoryBot.create(:book) unless Book.exists?
   end
 
   config.before(:each, type: :controller) do
     request.env["devise.mapping"] = Devise.mappings[:user]
+  end
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 end

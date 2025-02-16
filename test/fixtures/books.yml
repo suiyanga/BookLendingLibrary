@@ -1,10 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 one:
-  title: "Book Title"
-  author: "Author Name"
-  isbn: "1234567890"  # A unique ISBN value
+  title: "Book One"
+  author: "Author One"
+  isbn: "978-1234567890"
+  image_url: "https://via.placeholder.com/150"
 
 two:
-  title: "Book Title"
-  author: "Author Name"
-  isbn: "0987654321"  # Another unique ISBN value
+  title: "Book Two"
+  author: "Author Two"
+  isbn: "978-0987654321"
+  image_url: "https://via.placeholder.com/150"

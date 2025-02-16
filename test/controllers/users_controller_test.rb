@@ -2,6 +2,7 @@ require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   include Rails.application.routes.url_helpers
+  include Devise::Test::IntegrationHelpers
 
   test "should get show" do
     user = FactoryBot.create(:user)  # Use FactoryBot to create a user

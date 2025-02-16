@@ -2,6 +2,7 @@ require "test_helper"
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
   include Rails.application.routes.url_helpers
+  include Devise::Test::IntegrationHelpers
 
   # Test for index action
   test "should get index" do

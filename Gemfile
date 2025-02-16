@@ -69,9 +69,10 @@ end
 # For testing
 group :test do
   gem "rspec-rails"
+  gem "rspec-mocks", "~> 3.0"
   gem "shoulda-matchers"
   gem "rails-controller-testing"
-  gem 'database_cleaner-active_record', '~> 2.0'
+  gem "database_cleaner-active_record", "~> 2.0"
 end
 
 group :test do

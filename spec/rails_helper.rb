@@ -19,6 +19,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     FactoryBot.create(:user) unless User.exists?
+    FactoryBot.create(:book) unless Book.exists?
   end
 
   config.before(:each) do

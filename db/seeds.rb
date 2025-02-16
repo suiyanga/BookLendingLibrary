@@ -50,6 +50,7 @@ books = [
 ]
 
 books.each do |book_attrs|
+  book_attrs[:isbn] = "978-#{rand(1000000000..9999999999)}" # Ensure dynamic ISBN generation
   book = Book.create(book_attrs)
   if book.persisted?
     puts "✅ Book added: #{book.title}"

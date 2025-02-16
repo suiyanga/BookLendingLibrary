@@ -1,7 +1,9 @@
 one:
   email: "user@example.com"
-  password_digest: "<%= User.digest('password') %>"
+  password: "password"
+  password_confirmation: "password"
 
 two:
   email: "user2@example.com"
-  password_digest: "<%= User.digest('password2') %>"
+  password: "password2"
+  password_confirmation: "password2"

@@ -1,3 +1,8 @@
-#!/usr/bin/env bash
-set -e
-bundle exec rubocop -f github "$@"
+#!/usr/bin/env ruby
+require "rubygems"
+require "bundler/setup"
+
+# explicit rubocop config increases performance slightly while avoiding config confusion.
+ARGV.unshift("--config", File.expand_path("../.rubocop.yml", __dir__))
+
+load Gem.bin_path("rubocop", "rubocop")

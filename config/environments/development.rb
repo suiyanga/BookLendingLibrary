@@ -1,6 +1,11 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+
+
+  config.hosts << "localhost"
+  config.hosts << "127.0.0.1"
+  config.hosts << "www.example.com"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.

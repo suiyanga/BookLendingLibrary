@@ -2,12 +2,16 @@ Rails.application.routes.draw do
   root "books#index"
 
   # Ensure Devise is properly loaded
-  devise_for :users, controllers: {
-    sessions: "users/sessions",
+  devise_for :users, controllers: { 
+    sessions: "users/sessions", 
     registrations: "users/registrations",
-    passwords: "users/passwords"
+    passwords: "users/passwords" 
   }
+  
 
+
+
+  
   # Only include users#show, no manual sign_out (handled by Devise)
   resources :users, only: [ :show ]
 

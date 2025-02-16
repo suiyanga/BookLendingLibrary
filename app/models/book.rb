@@ -6,8 +6,7 @@ class Book < ApplicationRecord
   validates :isbn, uniqueness: true
 
   # Allow both external URLs (http/https) and local asset paths
-  validates :image_url, format: { with: /\A(https?:\/\/|\/?assets\/)?[\w\-.]+\.(png|jpg|jpeg|webp)\z/, message: "must be a valid URL or asset path" }, allow_blank: true
-
+  validates :image_url, format: { with: URI::DEFAULT_PARSER.make_regexp(['http', 'https']), message: 'must be a valid URL' }
   def available?
     !borrowings.exists?(returned_at: nil)
   end

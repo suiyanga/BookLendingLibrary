@@ -71,8 +71,9 @@ jobs:
     postgres:
       image: postgres
       env:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: book_lending_library_user
+        POSTGRES_PASSWORD: Uptown7unk*69  
+        POSTGRES_DB: book_lending_library_test 
       ports:
         - 5432:5432
       options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -106,6 +107,11 @@ jobs:
         bin/rails db:schema:load RAILS_ENV=test
         bin/rails db:seed RAILS_ENV=test
 
+    - name: Set up PostgreSQL user and database
+      run: |
+        sudo -u postgres psql -c "CREATE USER book_lending_library_user WITH PASSWORD 'Uptown7unk*69';"
+        sudo -u postgres psql -c "CREATE DATABASE book_lending_library_test OWNER book_lending_library_user;"
+    
     - name: Set up database
       env:
         RAILS_ENV: test

@@ -1,9 +1,7 @@
 one:
   email: "user@example.com"
-  password: "password"
-  password_confirmation: "password"
+  encrypted_password: <%= User.new(password: "password").encrypted_password %>
 
 two:
   email: "user2@example.com"
-  password: "password2"
-  password_confirmation: "password2"
+  encrypted_password: <%= User.new(password: "password2").encrypted_password %>

@@ -5,9 +5,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   test "should get show" do
-    user = FactoryBot.create(:user)  # Use FactoryBot to create a user
-    sign_in user  # Devise method to sign in the user
+    user = FactoryBot.create(:user)
+    puts "User created: #{user.inspect}"  # Debugging line
+    sign_in user
     get user_url(user)
     assert_response :success
-  end
+  end  
 end

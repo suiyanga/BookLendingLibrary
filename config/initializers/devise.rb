@@ -3,7 +3,7 @@ Devise.setup do |config|
 
   # config.orm = :active_record
   config.secret_key = "some-random-secret-key" # Replace with a secure key
-  config.mailer_sender = "please-change-me@example.com"
+  config.mailer_sender = "suiyangakinya@example.com"
 
   # Fix for Devise mapping issue
   config.skip_session_storage = []  # Enable session storage

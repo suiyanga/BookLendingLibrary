@@ -1,9 +1,9 @@
 one:
   email: "user1@example.com"
-  password_digest: <%= User.digest('password') %>
+  encrypted_password: <%= User.digest('password') %>
   # other required fields for user
 
 two:
   email: "user2@example.com"
-  password_digest: <%= User.digest('password') %>
+  encrypted_password: <%= User.digest('password') %>
   # other required fields for user
